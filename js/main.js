@@ -75,6 +75,23 @@ let myArrayMedia = arrayElements.map((item) => {
 console.log(myArrayMedia);
 
 // myArrayAuthor
+let myObyAuthor = arrayElements.map((item) => {
+    let element = item.author;
+    return element;
+})
+
+let myArrayAuthorName = myObyAuthor.map((item) => {
+    let elementName = item.name;
+    return elementName;
+})
+console.log(myArrayAuthorName);
+
+let myArrayAuthorImage = myObyAuthor.map((item) => {
+    let elementName = item.image;
+    return elementName;
+})
+console.log(myArrayAuthorImage);
+
 
 let myArrayLikes = arrayElements.map((item) => {
     let element = item.likes;
@@ -91,18 +108,7 @@ console.log(myArrayCreated);
 
 
 
-
-
-
-
-
-
-
-let divContainer = document.getElementById("container");
-divClassPost();
-
-
-function divClassPost(){
+for (let i = 0; i < arrayElements.length; i++){
     // creo i miei collegamenti e vari elementi
     let divContainer = document.getElementById("container");
     divContainer.classList.add("post-list");
@@ -126,9 +132,9 @@ function divClassPost(){
     post_meta.append(post_meta_icon);
 
     let img_profile_pic = document.createElement("img");
-    img_profile_pic.classList.add("profile-pic");
-    img_profile_pic.src;
-    img_profile_pic.alt;
+    img_profile_pic.classList.add("profile-pic");   
+    img_profile_pic.src = myArrayAuthorImage[i];
+    img_profile_pic.alt = myArrayAuthorName[i];
     post_meta_icon.append(img_profile_pic);
 
     let post_meta_data = document.createElement("div");
@@ -137,11 +143,16 @@ function divClassPost(){
 
     let post_meta_data_author = document.createElement("div");
     post_meta_data_author.classList.add("post-meta__author");
+    post_meta_data_author.textContent = myArrayAuthorName[i];
+    // mi riporta la scritta fra virgolette
     post_meta_data.append(post_meta_data_author);
 
     let post_meta_time = document.createElement("div");
     post_meta_time.classList.add("post-meta__time");
+    post_meta_time.textContent = myArrayCreated[i];
     post_meta_data.append(post_meta_time)
+
+    //sono arrivato qui
 
     // creo il secondo blocco di div interni al div con classe post
     let post_text = document.createElement("div");
@@ -198,4 +209,9 @@ function divClassPost(){
     // manca id="like-counter-1"
     js_likes_counter.innerHTML = "80";
     likes_counter.append(js_likes_counter);
+
+
+
+
+
 }
