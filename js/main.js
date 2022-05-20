@@ -60,21 +60,17 @@ let myArrayId = arrayElements.map((item) => {
     let element = item.id;
     return element;
 })
-console.log(myArrayId);
 
 let myArrayContent = arrayElements.map((item) => {
     let element = item.content;
     return element;
 })
-console.log(myArrayContent);
 
 let myArrayMedia = arrayElements.map((item) => {
     let element = item.media;
     return element;
 })
-console.log(myArrayMedia);
 
-// myArrayAuthor
 let myObyAuthor = arrayElements.map((item) => {
     let element = item.author;
     return element;
@@ -84,26 +80,21 @@ let myArrayAuthorName = myObyAuthor.map((item) => {
     let elementName = item.name;
     return elementName;
 })
-console.log(myArrayAuthorName);
 
 let myArrayAuthorImage = myObyAuthor.map((item) => {
     let elementName = item.image;
     return elementName;
 })
-console.log(myArrayAuthorImage);
-
 
 let myArrayLikes = arrayElements.map((item) => {
     let element = item.likes;
     return element;
 })
-console.log(myArrayLikes);
 
 let myArrayCreated = arrayElements.map((item) => {
     let element = item.created;
     return element;
 })
-console.log(myArrayCreated);
 
 
 
@@ -111,7 +102,6 @@ console.log(myArrayCreated);
 for (let i = 0; i < arrayElements.length; i++){
     // creo i miei collegamenti e vari elementi
     let divContainer = document.getElementById("container");
-    divContainer.classList.add("post-list");
 
     // creo il div con classe post che si appende al div container
     let post = document.createElement("div");
@@ -120,7 +110,7 @@ for (let i = 0; i < arrayElements.length; i++){
 
     // creo il primo blocco di div interni al div con classe post
     let post_header = document.createElement("div");
-    post_header.classList.add("post_header");
+    post_header.classList.add("post__header");
     post.append(post_header);
 
     let post_meta = document.createElement("div");
@@ -128,7 +118,7 @@ for (let i = 0; i < arrayElements.length; i++){
     post_header.append(post_meta);
 
     let post_meta_icon = document.createElement("div");
-    post_meta_icon.classList.add("post-meta-icon");
+    post_meta_icon.classList.add("post-meta__icon");
     post_meta.append(post_meta_icon);
 
     let img_profile_pic = document.createElement("img");
@@ -152,11 +142,11 @@ for (let i = 0; i < arrayElements.length; i++){
     post_meta_time.textContent = myArrayCreated[i];
     post_meta_data.append(post_meta_time)
 
-    //sono arrivato qui
 
     // creo il secondo blocco di div interni al div con classe post
     let post_text = document.createElement("div");
     post_text.classList.add("post__text");
+    post_text.textContent = myArrayContent[i];
     post.append(post_text);
 
     let post_image = document.createElement("div");
@@ -164,8 +154,11 @@ for (let i = 0; i < arrayElements.length; i++){
     post.append(post_image);
 
     let img = document.createElement("img");
-    img.src;
+    img.src = myArrayMedia[i];
     post_image.append(img);
+
+
+
 
     // creo il terzo blocco di div interni al div con classe post
     let post_footer = document.createElement("div");
@@ -199,19 +192,21 @@ for (let i = 0; i < arrayElements.length; i++){
     like_button_label.innerHTML = " Mi Piace";
     like_button.append(like_button_label);
 
+
+    // sono fermo all'inserimento dei mi piace; lo devo fare cos ``$
     let likes_counter = document.createElement("div");
     likes_counter.classList.add("likes__counter");
-    likes_counter.innerHTML = "Piace a " + " persone";
-    likes_js_likes.append(likes_counter);
 
     let js_likes_counter = document.createElement("b");
     js_likes_counter.classList.add("js-likes-counter");
     // manca id="like-counter-1"
-    js_likes_counter.innerHTML = "80";
+    // js_likes_counter.textContent = myArrayLikes[i];
+    likes_js_likes.append(likes_counter);
+
+    likes_counter.innerHTML = "Piace a " + myArrayLikes[i] + " persone";
     likes_counter.append(js_likes_counter);
 
-
-
-
-
 }
+
+
+// ho inserito tutto tranne l'id
