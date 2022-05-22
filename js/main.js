@@ -38,7 +38,7 @@ const arrayElements = [
         "media": "https://unsplash.it/600/400?image=24",
         "author": {
             "name": "Luca Formicola",
-            "image": null
+            "image": "https://unsplash.it/300/300?image=20" //null
         },
         "likes": 56,
         "created": "2021-04-03"
@@ -95,20 +95,25 @@ let myArrayCreated = arrayElements.map((item) => {
     let element = item.created;
     return element;
 })
+console.log(myArrayCreated);
 
-
+// let myArrayCreatedReverse = [];
+// for(let i = 0; i < myArrayCreated.length; i++){
+//     let myDateReverse = myArrayCreated[i].split("-");
+//     myDateReverse.reverse();
+//     myArrayCreatedReverse.push(myDateReverse);
+// }
+// console.log(myArrayCreatedReverse);
 
 
 for (let i = 0; i < arrayElements.length; i++){
-    // creo i miei collegamenti e vari elementi
+
     let divContainer = document.getElementById("container");
 
-    // creo il div con classe post che si appende al div container
     let post = document.createElement("div");
     post.classList.add("post");
     divContainer.append(post);
 
-    // creo il primo blocco di div interni al div con classe post
     let post_header = document.createElement("div");
     post_header.classList.add("post__header");
     post.append(post_header);
@@ -134,16 +139,13 @@ for (let i = 0; i < arrayElements.length; i++){
     let post_meta_data_author = document.createElement("div");
     post_meta_data_author.classList.add("post-meta__author");
     post_meta_data_author.textContent = myArrayAuthorName[i];
-    // mi riporta la scritta fra virgolette
     post_meta_data.append(post_meta_data_author);
 
     let post_meta_time = document.createElement("div");
     post_meta_time.classList.add("post-meta__time");
-    post_meta_time.textContent = myArrayCreated[i];
+    post_meta_time.textContent = myArrayCreated[i]; // ??? inserire la data in formato italiano ???
     post_meta_data.append(post_meta_time)
 
-
-    // creo il secondo blocco di div interni al div con classe post
     let post_text = document.createElement("div");
     post_text.classList.add("post__text");
     post_text.textContent = myArrayContent[i];
@@ -157,10 +159,6 @@ for (let i = 0; i < arrayElements.length; i++){
     img.src = myArrayMedia[i];
     post_image.append(img);
 
-
-
-
-    // creo il terzo blocco di div interni al div con classe post
     let post_footer = document.createElement("div");
     post_footer.classList.add("post__footer");
     post.append(post_footer);
@@ -177,14 +175,15 @@ for (let i = 0; i < arrayElements.length; i++){
     let like_button = document.createElement("a");
     like_button.classList.add("like-button");
     like_button.classList.add("js-like-button");
-    // manca data-postid="1"
+    like_button.setAttribute("href", "javascript:void(0)");
+    like_button.setAttribute("data-postid", myArrayId[i]);
     likes_cta.append(like_button);
 
     let like_button_icon = document.createElement("i");
-    like_button_icon.classList.add("like-button__icon");
+    like_button_icon.classList.add("like-button__icon"); 
     like_button_icon.classList.add("fas");
     like_button_icon.classList.add("fa-thumbs-up");
-    // aria-hidden="true"
+    like_button_icon.setAttribute("aria-hidden", "true");
     like_button.append(like_button_icon);
 
     let like_button_label = document.createElement("span");
@@ -192,21 +191,18 @@ for (let i = 0; i < arrayElements.length; i++){
     like_button_label.innerHTML = " Mi Piace";
     like_button.append(like_button_label);
 
-
-    // sono fermo all'inserimento dei mi piace; lo devo fare cos ``$
     let likes_counter = document.createElement("div");
     likes_counter.classList.add("likes__counter");
-
-    let js_likes_counter = document.createElement("b");
-    js_likes_counter.classList.add("js-likes-counter");
-    // manca id="like-counter-1"
-    // js_likes_counter.textContent = myArrayLikes[i];
+    likes_counter.innerHTML = `Piace a <b id="like-counter-1" class="js-likes-counter"> ${myArrayLikes[i]} </b> persone`;
     likes_js_likes.append(likes_counter);
-
-    likes_counter.innerHTML = "Piace a " + myArrayLikes[i] + " persone";
-    likes_counter.append(js_likes_counter);
-
 }
 
 
-// ho inserito tutto tranne l'id
+// Formattare le date in formato italiano (gg/mm/aaaa); 
+
+// Se clicchiamo sul tasto “Mi Piace” cambiamo il colore al testo del bottone e 
+//incrementiamo il counter dei likes relativo. 
+//Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
+
+// Al click su un pulsante “Mi Piace” di un post, 
+// se abbiamo già cliccato dobbiamo decrementare il contatore e cambiare il colore del bottone.
