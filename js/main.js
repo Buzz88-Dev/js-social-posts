@@ -1,3 +1,24 @@
+// Ricreiamo un feed social aggiungendo al layout di base fornito, il nostro script JS in cui:
+// 1 -  Creiamo il nostro array di oggetti che rappresentano ciascun post. 
+//      Ogni post dovrà avere le informazioni necessarie per stampare la relativa card:
+//      id del post, numero progressivo da 1 a n
+//      nome autore,
+//      foto autore,
+//      data in formato americano (mm-gg-yyyy),
+//      testo del post,
+//      immagine (non tutti i post devono avere una immagine),
+//      numero di likes.
+//      Non è necessario creare date casuali Per le immagini va bene utilizzare qualsiasi servizio di placeholder ad es. Unsplash (https://unsplash.it/300/300?image=<id>)
+//      [qui, la base dati ve la passo, ma in caso le img che ci sono on funzionino, potete sostituirle in quel modo]
+// 2 -  Prendendo come riferimento il layout di esempio presente nell’html, stampiamo i post del nostro feed.
+// 3 -  Se clicchiamo sul tasto “Mi Piace” cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo. 
+//      Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
+// BONUS
+// Formattare le date in formato italiano (gg/mm/aaaa)
+// Gestire l’assenza dell’immagine profilo con un elemento di fallback che contiene le iniziali dell’utente (es. Luca Formicola > LF).
+// Al click su un pulsante “Mi Piace” di un post, se abbiamo già cliccato dobbiamo decrementare il contatore e cambiare il colore del bottone.
+
+
 const arrayElements = [
     {
         "id": 1,
@@ -38,7 +59,7 @@ const arrayElements = [
         "media": "https://unsplash.it/600/400?image=24",
         "author": {
             "name": "Luca Formicola",
-            "image": "https://unsplash.it/300/300?image=20" //null
+            "image": null 
         },
         "likes": 56,
         "created": "2021-04-03"
@@ -55,6 +76,8 @@ const arrayElements = [
         "created": "2021-03-05"
     }
 ];
+
+
 
 let myArrayId = arrayElements.map((item) => {
     let element = item.id;
@@ -75,11 +98,13 @@ let myObyAuthor = arrayElements.map((item) => {
     let element = item.author;
     return element;
 })
+console.log(myObyAuthor);
 
 let myArrayAuthorName = myObyAuthor.map((item) => {
     let elementName = item.name;
     return elementName;
 })
+console.log(myArrayAuthorName);
 
 let myArrayAuthorImage = myObyAuthor.map((item) => {
     let elementName = item.image;
@@ -90,6 +115,7 @@ let myArrayLikes = arrayElements.map((item) => {
     let element = item.likes;
     return element;
 })
+console.log(myArrayLikes);
 
 let myArrayCreated = arrayElements.map((item) => {
     let element = item.created;
@@ -97,13 +123,6 @@ let myArrayCreated = arrayElements.map((item) => {
 })
 console.log(myArrayCreated);
 
-// let myArrayCreatedReverse = [];
-// for(let i = 0; i < myArrayCreated.length; i++){
-//     let myDateReverse = myArrayCreated[i].split("-");
-//     myDateReverse.reverse();
-//     myArrayCreatedReverse.push(myDateReverse);
-// }
-// console.log(myArrayCreatedReverse);
 
 
 for (let i = 0; i < arrayElements.length; i++){
@@ -128,8 +147,14 @@ for (let i = 0; i < arrayElements.length; i++){
 
     let img_profile_pic = document.createElement("img");
     img_profile_pic.classList.add("profile-pic");   
-    img_profile_pic.src = myArrayAuthorImage[i];
-    img_profile_pic.alt = myArrayAuthorName[i];
+    
+    if (myArrayAuthorImage[i] !== null){
+        img_profile_pic.src = myArrayAuthorImage[i];
+        img_profile_pic.alt = myArrayAuthorName[i];
+    } else {
+        img_profile_pic.remove;
+        post_meta_icon.innerHTML = "L F"; /////// sistemare (riga 243 js)
+    }
     post_meta_icon.append(img_profile_pic);
 
     let post_meta_data = document.createElement("div");
@@ -143,7 +168,7 @@ for (let i = 0; i < arrayElements.length; i++){
 
     let post_meta_time = document.createElement("div");
     post_meta_time.classList.add("post-meta__time");
-    post_meta_time.textContent = myArrayCreated[i]; // ??? inserire la data in formato italiano ???
+    post_meta_time.textContent = myArrayCreated[i]; // inserire data in formato italiano (riga 227)
     post_meta_data.append(post_meta_time)
 
     let post_text = document.createElement("div");
@@ -198,11 +223,41 @@ for (let i = 0; i < arrayElements.length; i++){
 }
 
 
-// Formattare le date in formato italiano (gg/mm/aaaa); 
 
-// Se clicchiamo sul tasto “Mi Piace” cambiamo il colore al testo del bottone e 
-//incrementiamo il counter dei likes relativo. 
-//Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
+// Parte: Formattare le date in formato italiano (gg/mm/aaaa)
+//        prendo l'array con le date dei post (myArrayCreated)
+//        scompongo le diverse date con split; 
+//        inverto il primo elemento con l'ultimo con reverse
+//        unisco gli elementi per comporre la data
+let myArrayCreatedReverse = [];
+for(let i = 0; i < myArrayCreated.length; i++){
+    let myDateReverse = myArrayCreated[i].split("-");
+    myDateReverse.reverse();
+    myArrayCreatedReverse.push(myDateReverse);
+}
+console.log(myArrayCreatedReverse);
+console.log(myArrayCreatedReverse[0]);
 
-// Al click su un pulsante “Mi Piace” di un post, 
-// se abbiamo già cliccato dobbiamo decrementare il contatore e cambiare il colore del bottone.
+
+
+// Parte: Gestire l’assenza dell’immagine profilo con un elemento di fallback che contiene le iniziali dell’utente (es. Luca Formicola > LF).
+//        prendo l'array con i nomi e i cognomi degli autori (myArrayAuthorName)
+//        scomporre i nomi e cognomi degli autori con split; 
+//        prendere prima lettera nome e prima lettaera cognome dell autore
+let nomeCognome = [];
+
+for (let i = 0; i < myArrayAuthorName.length; i++){
+    scompongoNomeCognome = myArrayAuthorName[i].split(",");
+    nomeCognome.push(scompongoNomeCognome);
+}
+console.log(nomeCognome);
+console.log(nomeCognome[0]);
+console.log(nomeCognome[0][0]);
+
+
+
+// Parte: Se clicchiamo sul tasto “Mi Piace” cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo. 
+//        Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
+//        Al click su un pulsante “Mi Piace” di un post
+//        se abbiamo già cliccato dobbiamo decrementare il contatore e cambiare il colore del bottone.
+
