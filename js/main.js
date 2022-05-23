@@ -267,4 +267,26 @@ console.log(lettera);
 //        Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
 //        Al click su un pulsante “Mi Piace” di un post
 //        se abbiamo già cliccato dobbiamo decrementare il contatore e cambiare il colore del bottone.
+var arrMiPiace = [];
+let divButtonLike = document.querySelectorAll(".js-like-button");
+console.log(divButtonLike); // creo un array composto da tutte le classi js-like-button
+divButtonLike.forEach((button) => {
+    button.addEventListener("click",
+        function(){
+            let postId = parseInt(button.getAttribute("data-postid")) - 1;
+            console.log(postId);
+            button.classList.toggle("like-button--liked");
+            console.log(button);
 
+            if(button.classList.contains('like-button--liked')){
+                arrayElements[postId].likes++;
+                arrMiPiace = arrMiPiace.filter((value)=>value!==arrayElements[postId].id);
+            } else{
+                posts[postId].likes--;
+                arrMiPiace = arrMiPiace.filter((value)=>value!==posts[postId].id);
+            }
+            const likeCounter = document.getElementById(`like-counter-${arrayElements[postId].id}`);
+            likeCounter.innerText = arrayElements[postId].likes;
+        }
+    )
+})
