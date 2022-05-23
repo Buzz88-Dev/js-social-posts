@@ -220,42 +220,65 @@ for (let i = 0; i < arrayElements.length; i++){
     likes_counter.classList.add("likes__counter");
     likes_counter.innerHTML = `Piace a <b id="like-counter-${myArrayId[i]}" class="js-likes-counter"> ${myArrayLikes[i]} </b> persone`;
     likes_js_likes.append(likes_counter);
+
 }
 
 
 
-var arrMiPiace = [];
-let divButtonLike = document.querySelectorAll(".js-like-button");
-console.log(divButtonLike); // creo un array composto da tutte le classi js-like-button
-divButtonLike.forEach((button) => {
+let divButtonLike = document.querySelectorAll(".like-button");
+console.log(divButtonLike); // creo un array composto dai 5 elementi a che contengono la classe js-like-button; funziona anche con like-button
+divButtonLike.forEach((button) => {  // (button) sta per il like_button nel for (ovvero elemento a)
     button.addEventListener("click",
         function(){
-            let postId = parseInt(button.getAttribute("data-postid")) - 1;
-            console.log(postId);
-            button.classList.toggle("like-button--liked");
-            console.log(button);
+            let postId = parseInt(button.getAttribute("data-postid")) - 1;  // all interno del for: let postId = parseInt(like_button.getAttribute("data-postid")); ovvero prendo il valore dell'id
+            button.classList.toggle("like-button--liked");  // con toggle inserisco la classe like-button--liked al click dell elemento a
 
             if(button.classList.contains('like-button--liked')){
-                arrayElements[postId].likes++;
-                arrMiPiace = arrMiPiace.filter((value) => value!== arrayElements[postId].id);
+                arrayElements[postId].likes++; // aumento di 1 il valore della chiave "likes" del post nell arrayElements con id 1 (ovvero in posizione 0)
             } else{
-                arrayElements[postId].likes--;
-                arrMiPiace = arrMiPiace.filter((value)=>value!== arrayElements[postId].id);
+                arrayElements[postId].likes--; // diminuisco di 1 il valore della chiave "likes" del post nell arrayElements con id 1 (ovvero in posizione 0)
             }
             const likeCounter = document.getElementById(`like-counter-${arrayElements[postId].id}`);
             likeCounter.innerText = arrayElements[postId].likes;
         }
     )
 })
+console.log(arrMiPiace);
+
 
 
 //funzione che mi permette di cambiare la data
 function changeFormateDate(oldDate) {
    return oldDate.split("-").reverse().join("/");
 }
+// singoli passaggi della funzione changeFormateDate
+for (let i = 0; i < myArrayCreated.length; i++){  // ['2021-06-25', '2021-09-03', '2021-05-15', '2021-04-03', '2021-03-05']
+    let scomposizione = myArrayCreated[i].split("-")
+    console.log(scomposizione); // ['2021', '06', '25']
 
-function initialName(name) {
+    scomposizione.reverse()
+    console.log(scomposizione); // ['25', '06', '2021']
+
+    let ricompongo = scomposizione.join("/");
+    console.log(ricompongo); // 25/06/2021
+}
+
+
+
+function initialName(name) {     // creo una funzione e gli passo (name) che nel for sarebbe (myArrayAuthorName[i])
     let initials = name.split(' ');
     initials = initials[0].charAt(0) + initials[1].charAt(0);
     return initials;
 }
+// singoli passaggi che creano la funzione initialName
+let iniziali = myArrayAuthorName[0];
+console.log(iniziali);
+
+iniziali = myArrayAuthorName[0].split(" ");
+console.log(iniziali);
+
+iniziali = iniziali[0].charAt(0) + iniziali[1].charAt(0);
+console.log(iniziali);
+
+
+
