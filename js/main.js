@@ -245,14 +245,21 @@ console.log(myArrayCreatedReverse[0]);
 //        scomporre i nomi e cognomi degli autori con split; 
 //        prendere prima lettera nome e prima lettaera cognome dell autore
 let nomeCognome = [];
-
 for (let i = 0; i < myArrayAuthorName.length; i++){
     scompongoNomeCognome = myArrayAuthorName[i].split(",");
     nomeCognome.push(scompongoNomeCognome);
 }
 console.log(nomeCognome);
-console.log(nomeCognome[0]);
-console.log(nomeCognome[0][0]);
+
+let parola = nomeCognome[0][0].split(" ");
+console.log(parola);
+
+let lettera = parola[0];
+console.log(lettera);
+
+lettera = lettera[0];
+console.log(lettera);
+
 
 
 
