@@ -168,7 +168,7 @@ for (let i = 0; i < arrayElements.length; i++){
 
     let post_meta_time = document.createElement("div");
     post_meta_time.classList.add("post-meta__time");
-    post_meta_time.textContent = myArrayCreated[i]; // inserire data in formato italiano (riga 227)
+    post_meta_time.textContent = changeFormateDate(myArrayCreated[i]);
     post_meta_data.append(post_meta_time)
 
     let post_text = document.createElement("div");
@@ -224,49 +224,6 @@ for (let i = 0; i < arrayElements.length; i++){
 
 
 
-// Parte: Formattare le date in formato italiano (gg/mm/aaaa)
-//        prendo l'array con le date dei post (myArrayCreated)
-//        scompongo le diverse date con split; 
-//        inverto il primo elemento con l'ultimo con reverse
-//        unisco gli elementi per comporre la data
-let myArrayCreatedReverse = [];
-for(let i = 0; i < myArrayCreated.length; i++){
-    let myDateReverse = myArrayCreated[i].split("-");
-    myDateReverse.reverse();
-    myArrayCreatedReverse.push(myDateReverse);
-}
-console.log(myArrayCreatedReverse);
-console.log(myArrayCreatedReverse[0]);
-
-
-
-// Parte: Gestire l’assenza dell’immagine profilo con un elemento di fallback che contiene le iniziali dell’utente (es. Luca Formicola > LF).
-//        prendo l'array con i nomi e i cognomi degli autori (myArrayAuthorName)
-//        scomporre i nomi e cognomi degli autori con split; 
-//        prendere prima lettera nome e prima lettaera cognome dell autore
-let nomeCognome = [];
-for (let i = 0; i < myArrayAuthorName.length; i++){
-    scompongoNomeCognome = myArrayAuthorName[i].split(",");
-    nomeCognome.push(scompongoNomeCognome);
-}
-console.log(nomeCognome);
-
-let parola = nomeCognome[0][0].split(" ");
-console.log(parola);
-
-let lettera = parola[0];
-console.log(lettera);
-
-lettera = lettera[0];
-console.log(lettera);
-
-
-
-
-// Parte: Se clicchiamo sul tasto “Mi Piace” cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo. 
-//        Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
-//        Al click su un pulsante “Mi Piace” di un post
-//        se abbiamo già cliccato dobbiamo decrementare il contatore e cambiare il colore del bottone.
 var arrMiPiace = [];
 let divButtonLike = document.querySelectorAll(".js-like-button");
 console.log(divButtonLike); // creo un array composto da tutte le classi js-like-button
