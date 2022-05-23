@@ -153,7 +153,7 @@ for (let i = 0; i < arrayElements.length; i++){
         img_profile_pic.alt = myArrayAuthorName[i];
     } else {
         img_profile_pic.remove;
-        post_meta_icon.innerHTML = "L F"; /////// sistemare (riga 243 js)
+        post_meta_icon.innerHTML = initialName(myArrayAuthorName[i]); /////// sistemare (riga 243 js)
     }
     post_meta_icon.append(img_profile_pic);
 
@@ -290,3 +290,15 @@ divButtonLike.forEach((button) => {
         }
     )
 })
+
+
+//funzioni generiche
+function changeFormateDate(oldDate) {
+   return oldDate.split("-").reverse().join("/");
+}
+
+function initialName(name) {
+    let initials = name.split(' ');
+    initials = initials[0].charAt(0) + initials[1].charAt(0);
+    return initials;
+}
