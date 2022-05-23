@@ -153,7 +153,7 @@ for (let i = 0; i < arrayElements.length; i++){
         img_profile_pic.alt = myArrayAuthorName[i];
     } else {
         img_profile_pic.remove;
-        post_meta_icon.innerHTML = initialName(myArrayAuthorName[i]); /////// sistemare (riga 243 js)
+        post_meta_icon.innerHTML = initialName(myArrayAuthorName[i]); 
     }
     post_meta_icon.append(img_profile_pic);
 
@@ -218,7 +218,7 @@ for (let i = 0; i < arrayElements.length; i++){
 
     let likes_counter = document.createElement("div");
     likes_counter.classList.add("likes__counter");
-    likes_counter.innerHTML = `Piace a <b id="like-counter-1" class="js-likes-counter"> ${myArrayLikes[i]} </b> persone`;
+    likes_counter.innerHTML = `Piace a <b id="like-counter-${myArrayId[i]}" class="js-likes-counter"> ${myArrayLikes[i]} </b> persone`;
     likes_js_likes.append(likes_counter);
 }
 
@@ -237,10 +237,10 @@ divButtonLike.forEach((button) => {
 
             if(button.classList.contains('like-button--liked')){
                 arrayElements[postId].likes++;
-                arrMiPiace = arrMiPiace.filter((value)=>value!==arrayElements[postId].id);
+                arrMiPiace = arrMiPiace.filter((value) => value!== arrayElements[postId].id);
             } else{
-                posts[postId].likes--;
-                arrMiPiace = arrMiPiace.filter((value)=>value!==posts[postId].id);
+                arrayElements[postId].likes--;
+                arrMiPiace = arrMiPiace.filter((value)=>value!== arrayElements[postId].id);
             }
             const likeCounter = document.getElementById(`like-counter-${arrayElements[postId].id}`);
             likeCounter.innerText = arrayElements[postId].likes;
@@ -249,7 +249,7 @@ divButtonLike.forEach((button) => {
 })
 
 
-//funzioni generiche
+//funzione che mi permette di cambiare la data
 function changeFormateDate(oldDate) {
    return oldDate.split("-").reverse().join("/");
 }
