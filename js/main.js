@@ -243,7 +243,6 @@ divButtonLike.forEach((button) => {  // (button) sta per il like_button nel for 
         }
     )
 })
-console.log(arrMiPiace);
 
 
 
